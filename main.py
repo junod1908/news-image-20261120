@@ -308,7 +308,7 @@ def kyiv_scene():
     # Headline + subhead + stat chips.
     draw_text("MISSILES OVER KYIV", 40, 126, 6, WHITE, shadow=SHADOW)
     draw_text("HOURS AFTER THE PEACE PHOTO", 40, 182, 3, AMBER)
-    w1 = chip(40, 220, "\u22655 KILLED", 3, WHITE, DARK_RED)
+    w1 = chip(40, 220, "5+ KILLED", 3, WHITE, DARK_RED)
     chip(40 + w1 + 16, 220, "3 BRIDGES HIT", 3, WHITE, (44, 48, 78))
 
 
@@ -334,23 +334,24 @@ def peace_strip():
     rect(0, y0, W, 2, (70, 84, 130))
     rect(0, y0 + 72, W, 2, (70, 84, 130))
 
-    # Three flag bars: US / Russia / China.
+    # Three small flag bars side by side: US / Russia / China (64px total).
     fx = 44
-    # US: stripes + canton
+    fy = 426
+    # US: red/white stripes + blue canton.
     for i in range(7):
-        rect(fx, 404 + i * 2, 64, 2, (190, 44, 54) if i % 2 == 0 else (238, 238, 238))
-    rect(fx, 404, 26, 8, (24, 34, 86))
-    # Russia: white / blue / red
-    rect(fx, 422, 64, 5, (238, 238, 238))
-    rect(fx, 427, 64, 5, (44, 84, 186))
-    rect(fx, 432, 64, 4, (206, 44, 54))
-    # China: red + yellow star
-    rect(fx, 440, 64, 14, (214, 44, 44))
+        rect(fx, fy + i * 2, 20, 2, (190, 44, 54) if i % 2 == 0 else (238, 238, 238))
+    rect(fx, fy, 8, 8, (24, 34, 86))
+    # Russia: white / blue / red horizontal bands.
+    rect(fx + 22, fy, 20, 5, (238, 238, 238))
+    rect(fx + 22, fy + 5, 20, 5, (44, 84, 186))
+    rect(fx + 22, fy + 10, 20, 4, (206, 44, 54))
+    # China: red field + one yellow star.
+    rect(fx + 44, fy, 20, 14, (214, 44, 44))
     star = ("..X..", ".XXX.", "XXXXX", ".X.X.", "X...X")
     for sy, row in enumerate(star):
         for sx, ch in enumerate(row):
             if ch == "X":
-                rect(fx + 8 + sx * 2, 443 + sy * 2, 2, 2, (250, 220, 80))
+                rect(fx + 44 + 5 + sx * 2, fy + 2 + sy * 2, 2, 2, (250, 220, 80))
 
     draw_text("PEACE IN SHENZHEN \u2014 TRUMP \u00b7 PUTIN \u00b7 XI",
               132, 404, 3, WHITE)
@@ -431,7 +432,8 @@ def bottom_row():
     pts = [(0, 6), (28, 12), (55, 8), (83, 22), (110, 18),
            (138, 34), (166, 30), (193, 48), (221, 58)]
     base_y = 858
-    draw_text("\u221217%+", ix + 138, 848, 3, RED, gap=2)
+    # Label in the free wedge below the line's start, clear of line and text.
+    draw_text("\u221217%+", ix, 888, 3, RED, gap=2)
     for i in range(len(pts) - 1):
         line(ix + pts[i][0], base_y + pts[i][1],
              ix + pts[i + 1][0], base_y + pts[i + 1][1], RED, 3)
